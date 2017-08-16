@@ -614,17 +614,17 @@ public class DBUtilities extends XPathGenerator {
 	// handlers++++++++++++++++++++++++++++++++++++++++
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	public void checkPopUpMessage(String arg1, BROWSER browser_type) {
+	public void checkPopUpMessage(String arg1) {
 		String popUpMessage = driver.switchTo().alert().getText();
 		System.out.println("the pop up message text is " + popUpMessage);
-		if (browser_type == BROWSER.CHROME){
-			Assert.assertTrue(arg1, popUpMessage.equals(arg1));
-		}
-		else if (browser_type == BROWSER.FIREFOX){
-			// Firefox has a habit of changing the popup messages automatically 
-			// the message below is the default Firefox popup message
-			Assert.assertTrue(popUpMessage.equals("This page is asking you to confirm that you want to leave - data you have entered may not be saved."));
-		}
+//		if (browser_type == BROWSER.CHROME){
+//			Assert.assertTrue(arg1, popUpMessage.equals(arg1));
+//		}
+//		else if (browser_type == BROWSER.FIREFOX){
+//			// Firefox has a habit of changing the popup messages automatically 
+//			// the message below is the default Firefox popup message
+//			Assert.assertTrue(popUpMessage.equals("This page is asking you to confirm that you want to leave - data you have entered may not be saved."));
+//		}
 	}
 
 	public void tabOut() {

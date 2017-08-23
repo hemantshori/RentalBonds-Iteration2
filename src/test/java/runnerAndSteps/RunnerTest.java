@@ -21,8 +21,10 @@ import cucumber.api.junit.Cucumber;
 		//features = "src/test/resource/com/RentalBonds/InterfaceTest.feature")
 
 // ****************for Regression****************************
-  //   features = "src/test/resource/com/RentalBonds/Iteration1Tests.feature")
+//features = "src/test/resource/com/RentalBonds/Iteration2.feature")
+//features = "src/test/resource/com/RentalBonds/Iteration1Tests.feature")
 //features = "src/test/resource/com/RentalBonds/WCAG.feature")
+
 
 
 //****************for WIP****************************

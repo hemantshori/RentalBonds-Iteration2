@@ -170,7 +170,7 @@ public class XPathGenerator {
 		// String xpath = "//table[contains(@id, '"+arg1+"')]/tbody";
 		// *[@id='treatmentoptiontable']/tbody/tr[contains(.,'Paritaprevir/ RTV
 		// + Ombitasvir + Dasabuvir + Ribavirin')]
-		String xpath = "//*[@id='" + arg2 + "']/tbody/tr[contains(.,'" + arg1 + "')]";
+		String xpath = "//*[contains(@id, '" + arg2 + "')]//tbody//tr[contains(.,'" + arg1 + "')]";
 		System.out.println(" its " + xpath);
 		return xpath;
 	}

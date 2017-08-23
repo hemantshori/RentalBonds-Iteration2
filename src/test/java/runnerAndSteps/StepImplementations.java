@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.List;
@@ -112,7 +113,8 @@ public class StepImplementations {
 	            if (!browserAppPath.exists()) {
 	               browserAppPath = new File("C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe");
 	           }
-	        } else {
+	        } 
+	        else {
 	           // Ubuntu
 	           browserAppPath = new File("/usr/bin/firefox/firefox-bin");
 	        }
@@ -151,7 +153,7 @@ public class StepImplementations {
 
 	@After()
 	public void tearDown() {
-		driver.quit();
+	//	driver.quit();
 	}
 	// ******************************************************************************
 
@@ -282,11 +284,13 @@ public class StepImplementations {
 	
 	@Given("^I capture \"(.*?)\"$")
 	public String i_capture(String arg1) throws Throwable {
-		Thread.sleep(5000);
+		Thread.sleep(3000);
 		if(arg1.equals("html")){
 			sourceCode = driver.getPageSource();
 			URLCaptured = driver.getCurrentUrl();
-	
+			if (!sourceCode.startsWith("<!DOCTYPE html>")){
+				sourceCode = "<!DOCTYPE html>\n" + sourceCode;
+			}
 		}
 		else {
 			DBUtilities createXpath = new DBUtilities(driver);
@@ -299,6 +303,7 @@ public class StepImplementations {
 			System.out.println(URLCaptured + " HAS " + Capture + " WCAG ERRORS\n");
 			System.out.println("***********************************************************************");
 		}
+		Thread.sleep(5000);
 		return Capture;
   
 	}
@@ -365,6 +370,24 @@ public class StepImplementations {
 		}	
 	
 	}
+	
+	@Then("^I enter \"(.*?)\" with the current date prepended into \"(.*?)\"$")
+	public void i_enter_with_the_current_date_appended_into(String arg1, String arg2) throws Throwable{
+		DBUtilities util = new DBUtilities(driver);
+		String myXpath;
+		String inputText = util.DNT() + arg1;
+		myXpath = util.xpathMakerByInputId(arg2);
+		try {	  
+			  driver.findElement(By.xpath(myXpath)).clear();
+		}
+		catch (Exception e){
+			  e.printStackTrace();
+			  System.out.println("Cannot find an input field! Now trying to find a textarea field...");
+			  myXpath = util.xpathMakerByTextAreaId(arg2);
+			  driver.findElement(By.xpath(myXpath)).clear();
+		}
+		driver.findElement(By.xpath(myXpath)).sendKeys(inputText);
+	}
 
 	@Given("^I check I am on \"(.*?)\" page$")
 	public void i_check_I_am_on_page(String arg1) {
@@ -393,6 +416,18 @@ public class StepImplementations {
 		PageFactory.initElements(driver, DBUtilities.class).checkElementPresentOnScreen(table);
 
 	}
+	
+	
+	@Then("^I see text \"(.*?)\" not displayed$")
+	public void i_see_text_not_displayed(String arg1) throws Throwable {
+		// Gessit_LandingPage AU = PageFactory.initElements(driver,
+		// Gessit_LandingPage.class);
+		// Thread.sleep(1000);
+		// AU.checkUIElementTEXTIsDisplayed(arg1);
+		DBUtilities createXpath = new DBUtilities(driver);
+		createXpath.checkTextElementAbsent(arg1);
+	}
+	
 	@Then("^I click on text \"(.*?)\"$")
 	public void i_click_on_text(String arg1) throws Throwable {
 		if (arg1.equals("Users")){
@@ -506,23 +541,13 @@ public class StepImplementations {
 		Thread.sleep(2000);
 	}
 	
-	// *********************************************** read popup
-	// message********************************************
 	@Then("^I see \"(.*?)\" displayed on popup and I click \"(.*?)\"$")
 	public void i_see_displayed_on_popup_and_I_click(String arg1, String arg2) throws Throwable {
+   //Thread.sleep(3000);
+		PageFactory.initElements(driver, DBUtilities.class).checkPopUpMessage(arg1, browser_type);
+		PageFactory.initElements(driver, DBUtilities.class).clickOnPopUP(arg2);
 		Thread.sleep(2000);
-		PageFactory.initElements(driver, DBUtilities.class).checkPopUpMessage(arg1);
-		PageFactory.initElements(driver, DBUtilities.class).clickOnPopUP(arg1);
-
 	}
-//	@Then("^I see \"(.*?)\" displayed on popup and I click \"(.*?)\"$")
-//	
-//	public void i_see_displayed_on_popup_and_I_click(String arg1, String arg2) throws Throwable {
-//   //Thread.sleep(3000);
-//		PageFactory.initElements(driver, DBUtilities.class).checkPopUpMessage(arg1, browser_type);
-//		PageFactory.initElements(driver, DBUtilities.class).clickOnPopUP(arg2);
-//		Thread.sleep(2000);
-//	}
 	
 	@Then("^I check \"(.*?)\" is empty$")
 	public void i_check_is_empty(String arg1) throws Throwable {
@@ -600,9 +625,7 @@ public class StepImplementations {
 	public void i_see_popup_displayed(String arg1) throws Throwable {
 
 		DBUtilities createXpath = new DBUtilities(driver);
-		String checkpopup = createXpath.xpathMakerById(arg1);
-		Assert.assertTrue(driver.findElement(By.xpath(checkpopup)).isDisplayed());
-
+		createXpath.xpathMakerByTextInClass(arg1);
 	}
 	
 	@Given("^I enter popup values as$")
@@ -625,7 +648,9 @@ public class StepImplementations {
 	
 //			String myxpath = PageFactory.initElements(driver, Gessit_AddPatientPage.class).xpathMakerById1AndId2(arg1, arg2);
 //			driver.findElement(By.xpath(myxpath)).click();
-		String myxpath = PageFactory.initElements(driver, DBUtilities.class).xpathMakerContainsText(arg1);
+		//String myxpath = PageFactory.initElements(driver, DBUtilities.class).xpathMakerContainsText(arg1);
+		// following is RB special
+		String myxpath = PageFactory.initElements(driver, DBUtilities.class).xpathMakerDivContainsText(arg1);
 		String myxpath2 = PageFactory.initElements(driver, DBUtilities.class).xpathMakerById(arg2);
 		System.out.println(" looking for dropdown xpath " +myxpath);
 	driver.findElement(By.xpath(myxpath2)).click();
@@ -634,11 +659,6 @@ public class StepImplementations {
 		
 		}
 		
-	
-	 @Then("^I see the table \"(.*?)\" displayed$")
-	 public void i_see_the_table_displayed(String arg1) throws Throwable {
-	 PageFactory.initElements(driver,DBUtilities.class).checkUIElementTableIsDisplayed(arg1);
-	 }
 	
 //	@Then("^I see element \"(.*?)\" displayed$")
 //	public void i_see_element_displayed(DataTable table) throws Throwable {
@@ -679,13 +699,15 @@ public class StepImplementations {
 
 	}
 	
+	@Then("^I see \"(.*?)\" is in \"(.*?)\" field and \"(.*?)\" is displayed as \"(.*?)\" in the row$")
+	public void i_see_is_in_field_and_is_displayed_as(String arg1, String arg2, String arg3, String arg4,
+			DataTable table) throws Throwable {
+		PageFactory.initElements(driver, DBUtilities.class).checkRowValuesOrder(arg2, arg1, table);
+	}
 	
-	// good example to convert string into webelement and vise versa
 	@Then("^I \"(.*?)\" text \"(.*?)\" displayed in table \"(.*?)\"$")
 	public void i_should_see_displayed_in_table(String arg1, String arg2, String arg3) throws Throwable {
 
-		
-	Log.info("Checking if " +arg2 +"exist in table " +arg2);
 		if (arg1.equals("check")) {
 			String checkElementInTable = PageFactory.initElements(driver, DBUtilities.class)
 					.xpathMakerPickTrTextInTableID(arg2, arg3);
@@ -696,22 +718,55 @@ public class StepImplementations {
 			// PageFactory.initElements(driver,
 			// DBUtilities.class).getTableRowContentByTableId(arg1,arg2,arg3);
 			DBUtilities createXpath = new DBUtilities(driver);
-			String checkElementInTable = createXpath.xpathMakerByTd(arg2);
-			Log.info("Clicking on element " +arg2 +" that exist in table " +arg2);
+			String checkElementInTable = createXpath.xpathMakerPickTrTextInTableID(arg2, arg3);
 			System.out.println("clicking on table element " + arg1);
 			driver.findElement(By.xpath(checkElementInTable)).click();
 
 		}
 	}
-	@Then("^a new page \"(.*?)\" is launched$")
-	public void a_new_page_is_launched(String arg1) throws Throwable {
-		String URL = driver.getCurrentUrl();
-		System.out.println(URL);
-		new DBUtilities(driver).passControlToNewWindow(arg1);
+	
+	// Then I check that table ARG with row containing ARG2 has the following
+	
+	@Then("^I check that table \"(.*?)\" with row containing \"(.*?)\" has the following$")
+	public void i_should_see_displayed_in_table(String arg1, String arg2, DataTable table) throws Throwable {
+	//public void i_should_see_displayed_in_table(String arg1, String arg2) throws Throwable {
 		
+		boolean all_clear = true;
+		
+		String tableXpath = PageFactory.initElements(driver, DBUtilities.class).xpathMakerPickTrTextInTableID(arg2, arg1);
+		String rowContent = driver.findElements(By.xpath(tableXpath)).get(0).getText();
+		List<List<String>> tableData = table.raw();
+		List<String> rowContentList = Arrays.asList(rowContent.split("\n"));
+		
+		for (int i = 1; i < tableData.size(); i++){
+			String data = tableData.get(i).get(1);
+			
+			// less strict implementation, merely checks if the data in the table is inside the row contents
+			/*if (!rowContentList.contains(data)){
+				System.out.println(data + " was not found in the table row!");
+				all_clear = false;
+			}*/
+			
+			// strict implementation, all one to one checks must succeed
+			if (!rowContentList.get(i-1).equals(data)){
+				System.out.println(data + ", " + rowContentList.get(i-1));
+				System.out.println(data + " was not found in the table row!");
+				all_clear = false;
+			}
+			
+		}
+		
+		// this step will click on table elements that generate popups, for some reason
+		// use this to refresh the page and make the popups disappear
+		driver.navigate().refresh();
+		
+		if (all_clear == false){
+			Assert.assertTrue(false);
+		}
+		
+
 	}
 	
-
 }
 	
 	//***********************************************************************************************************
@@ -1152,15 +1207,7 @@ public class StepImplementations {
 //
 
 //
-//	@Then("^I see text \"(.*?)\" not displayed$")
-//	public void i_see_text_not_displayed(String arg1) throws Throwable {
-//		// Gessit_LandingPage AU = PageFactory.initElements(driver,
-//		// Gessit_LandingPage.class);
-//		// Thread.sleep(1000);
-//		// AU.checkUIElementTEXTIsDisplayed(arg1);
-//		DBUtilities createXpath = new DBUtilities(driver);
-//		createXpath.checkTextElementAbsent(arg1);
-//	}
+
 //
 //	// check i am on right page
 //	@Given("^I check I am on \"(.*?)\" page$")
@@ -1376,7 +1423,11 @@ public class StepImplementations {
 //		new DBUtilities(driver).readTableAndCaptureInString(arg1);
 //	}
 //
-
+//	// @Then("^I see the table \"(.*?)\" displayed$")
+//	// public void i_see_the_table_displayed(String arg1) throws Throwable {
+//	// PageFactory.initElements(driver,
+//	// DBUtilities.class).checkUIElementTableIsDisplayed(arg1);
+//	// }
 //
 //	// @And("^I see the number of \"(.*?)\" table records displayed$")
 //	// public void i_see_the_number_of_table_records_displayed(String arg1)
@@ -1449,6 +1500,7 @@ public class StepImplementations {
 //	// }
 //	//
 //
+//	// good example to convert string into webelement and vise versa
 
 //
 //	@Then("^I see header \"(.*?)\" is displayed as \"(.*?)\" in table \"(.*?)\"$")
@@ -1458,11 +1510,7 @@ public class StepImplementations {
 //		PageFactory.initElements(driver, DBUtilities.class).checkTableHeadersOrder(arg3, table);
 //	}
 //
-//	@Then("^I see \"(.*?)\" is in \"(.*?)\" field and \"(.*?)\" is displayed as \"(.*?)\" in the row$")
-//	public void i_see_is_in_field_and_is_displayed_as(String arg1, String arg2, String arg3, String arg4,
-//			DataTable table) throws Throwable {
-//		PageFactory.initElements(driver, DBUtilities.class).checkRowValuesOrder(arg2, arg1, table);
-//	}
+	
 //
 //	// @And("^I see records in \"(.*?)\" are sorted by \"(.*?)\" in alphabetical
 //	// order$")

@@ -22,5 +22,8 @@ public class HomePage extends DBUtilities {
 		else if(arg1.equals("PasswordReset")){
 			driver.get("https://actrevenueofficetrial.outsystemsenterprise.com/ARBAccountMgmt/ResetYourPassword.aspx?Activation=22642e88e5fa480ea59d");
 		}
+		else if(arg1.equals("BondSearch")){
+			driver.get("https://actrevenueofficetrial.outsystemsenterprise.com/ARBBondLodgement/Search.aspx");
+		}
 	}
 }

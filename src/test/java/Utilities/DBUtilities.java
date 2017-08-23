@@ -382,7 +382,7 @@ public class DBUtilities extends XPathGenerator {
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	public void readTableAndCaptureInString(String arg1) {
-		System.out.println("Balley balley ni taur ni punjabban di");
+		//System.out.println("Balley balley ni taur ni punjabban di");
 		DBUtilities createXpath = new DBUtilities(driver);
 		String myXpath = createXpath.xpathMakerById(arg1);
 
@@ -390,12 +390,12 @@ public class DBUtilities extends XPathGenerator {
 		// List<WebElement> rows = driver.findElements(By.xpath(myXpath));
 
 		List<WebElement> rows = driver.findElements(By.xpath(myXpath));
-		System.out.println("Balley balley ni taur ni punjabban di Total number of rows :" + rows.size());
+		System.out.println("Total number of rows :" + rows.size());
 
 		List<WebElement> rowElements = driver.findElements(By.tagName("tr"));
 		System.out.println(rowElements.size());
 		String Table_data = driver.findElement(By.xpath(myXpath)).getText();
-		System.out.println(" chakk bai" + Table_data);
+		System.out.println("Table data" + Table_data);
 
 	}
 
@@ -504,6 +504,7 @@ public class DBUtilities extends XPathGenerator {
 
 						
 						try {
+							
 							  myXpath = createXpath.xpathMakerByInputId(data.get(i).get(0));
 							  System.out.println(i);
 							  System.out.println(myXpath);
@@ -513,7 +514,7 @@ public class DBUtilities extends XPathGenerator {
 						  catch (Exception e){
 							  e.printStackTrace();
 							  System.out.println("Cannot find an input field! Now trying to find a textarea field...");
-							  myXpath = createXpath.xpathMakerByTextAreaId(data.get(i).get(0));
+							  myXpath = createXpath.xpathMakerByInputId(data.get(i).get(0));
 							  System.out.println(i);
 							  System.out.println(myXpath);
 							  driver.findElement(By.xpath(myXpath)).clear();
@@ -523,7 +524,7 @@ public class DBUtilities extends XPathGenerator {
 						// disabled above as we have already clicked it before
 					// following is to make the input parameters unique to avoid duplocation error on UI
 						
-						if(myXpath.contains("EmailInput")||(myXpath.contains("emailAddress")||myXpath.contains("name"))){
+						if(myXpath.contains("OneLineAddress")||(myXpath.contains("StreetNumber"))){
 						String nameToBeEntered= data.get(i).get(1);
 						System.out.println(nameToBeEntered);
 					String dnt =	DNT();
@@ -614,17 +615,17 @@ public class DBUtilities extends XPathGenerator {
 	// handlers++++++++++++++++++++++++++++++++++++++++
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	public void checkPopUpMessage(String arg1) {
+	public void checkPopUpMessage(String arg1, BROWSER browser_type) {
 		String popUpMessage = driver.switchTo().alert().getText();
 		System.out.println("the pop up message text is " + popUpMessage);
-//		if (browser_type == BROWSER.CHROME){
-//			Assert.assertTrue(arg1, popUpMessage.equals(arg1));
-//		}
-//		else if (browser_type == BROWSER.FIREFOX){
-//			// Firefox has a habit of changing the popup messages automatically 
-//			// the message below is the default Firefox popup message
-//			Assert.assertTrue(popUpMessage.equals("This page is asking you to confirm that you want to leave - data you have entered may not be saved."));
-//		}
+		if (browser_type == BROWSER.CHROME){
+			Assert.assertTrue(arg1, popUpMessage.equals(arg1));
+		}
+		else if (browser_type == BROWSER.FIREFOX){
+			// Firefox has a habit of changing the popup messages automatically 
+			// the message below is the default Firefox popup message
+			Assert.assertTrue(popUpMessage.equals("This page is asking you to confirm that you want to leave - data you have entered may not be saved."));
+		}
 	}
 
 	public void tabOut() {

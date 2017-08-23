@@ -1,7 +1,7 @@
+
 @all
 Feature: WCAG Report generation
 
-	
   Scenario Outline: Login page
     Given I want to login to portal "<PortalName>"
     And I check I am on "Login" page
@@ -15,8 +15,8 @@ Feature: WCAG Report generation
     Then I write "Login" information to file
 
     Examples: 
-      | PortalName | PortalName2 | email                     | Password   | Message                                  |
-      | ARB        | AC CHECKER  | FirstAgentOne@agency1.com | Support123 | Invalid login details. Please try again. |
+      | PortalName | PortalName2 | email                | Password   | Message                                  |
+      | ARB        | AC CHECKER  | agentadmin2@test.com | Support123 | Invalid login details. Please try again. |
 
   Scenario Outline: Home page
     Given I want to login to portal "<PortalName>"
@@ -26,6 +26,7 @@ Feature: WCAG Report generation
       | Email    | <email>    |
       | Password | <Password> |
     And I hit Enter
+    Then I wait for "2000" milliseconds
     And I check I am on "ManageBonds" page
     And I capture "html"
     And I want to login to portal "<PortalName2>"
@@ -37,10 +38,9 @@ Feature: WCAG Report generation
     Then I write "Home Page" information to file
 
     Examples: 
-      | PortalName | PortalName2 | email                     | Password   | Message                                  |
-      | ARB        | AC CHECKER  | FirstAgentOne@agency1.com | Support123 | Invalid login details. Please try again. |
+      | PortalName | PortalName2 | email                | Password   | Message                                  |
+      | ARB        | AC CHECKER  | agentadmin2@test.com | Support123 | Invalid login details. Please try again. |
 
-	
   Scenario Outline: Sign Out page
     Given I want to login to portal "<PortalName>"
     And I check I am on "Login" page
@@ -62,10 +62,9 @@ Feature: WCAG Report generation
     Then I write "Sign Out" information to file
 
     Examples: 
-      | PortalName | PortalName2 | email                     | Password   | Message                                  |
-      | ARB        | AC CHECKER  | FirstAgentOne@agency1.com | Support123 | Invalid login details. Please try again. |
+      | PortalName | PortalName2 | email                | Password   | Message                                  |
+      | ARB        | AC CHECKER  | agentadmin2@test.com | Support123 | Invalid login details. Please try again. |
 
-	
   Scenario Outline: Forgot Password Page
     Given I want to login to portal "<PortalName>"
     And I check I am on "Login" page
@@ -81,10 +80,9 @@ Feature: WCAG Report generation
     Then I write "Forgot Password" information to file
 
     Examples: 
-      | PortalName | PortalName2 | email                     | Password   | Message                                  |
-      | ARB        | AC CHECKER  | FirstAgentOne@agency1.com | Support123 | Invalid login details. Please try again. |
+      | PortalName | PortalName2 | email                | Password   | Message                                  |
+      | ARB        | AC CHECKER  | agentadmin2@test.com | Support123 | Invalid login details. Please try again. |
 
-	@wip
   Scenario Outline: Registration Lessor
     Given I want to login to portal "<PortalName>"
     And I wait for "2000" milliseconds
@@ -121,10 +119,9 @@ Feature: WCAG Report generation
     Then I write "Registration Lessor" information to file
 
     Examples: 
-      | PortalName | PortalName2 | email                     | Password   | Message                                  |
-      | ARB        | AC CHECKER  | FirstAgentOne@agency1.com | Support123 | Invalid login details. Please try again. |
-	
-	@wip
+      | PortalName | PortalName2 | email                | Password   | Message                                  |
+      | ARB        | AC CHECKER  | agentadmin2@test.com | Support123 | Invalid login details. Please try again. |
+
   Scenario Outline: Registration Managing Agent
     Given I want to login to portal "<PortalName>"
     And I wait for "2000" milliseconds
@@ -159,11 +156,10 @@ Feature: WCAG Report generation
     Then I write "Registration Managing Agent" information to file
 
     Examples: 
-      | PortalName | PortalName2 | email                     | Password   | Message                                  |
-      | ARB        | AC CHECKER  | FirstAgentOne@agency1.com | Support123 | Invalid login details. Please try again. |
+      | PortalName | PortalName2 | email                | Password   | Message                                  |
+      | ARB        | AC CHECKER  | agentadmin2@test.com | Support123 | Invalid login details. Please try again. |
 
-
- Scenario Outline: Reset Password
+  Scenario Outline: Reset Password
     Given I want to login to portal "<PortalName>"
     And I check I am on "Login" page
     And I capture "html"
@@ -176,10 +172,10 @@ Feature: WCAG Report generation
     Then I write "Reset Password" information to file
 
     Examples: 
-      | PortalName | PortalName2 | email                     | Password   | Message                                  |
-      | ARB        | AC CHECKER  | FirstAgentOne@agency1.com | Support123 | Invalid login details. Please try again. |
+      | PortalName | PortalName2 | email                | Password   | Message                                  |
+      | ARB        | AC CHECKER  | agentadmin2@test.com | Support123 | Invalid login details. Please try again. |
 
-	@wip
+
   Scenario Outline: Profile Details
     Given I want to login to portal "<PortalName>"
     And I check I am on "Login" page
@@ -189,8 +185,8 @@ Feature: WCAG Report generation
       | Password | <Password> |
     And I hit Enter
     And I check I am on "ManageBonds" page
-    Then I click on text "Agent One"
-    Then I click on text "Profile"
+    Then I click on text "Agent Admin Two"
+    Then I click on text "MY Profile"
     Then I check I am on "Profile Details" page
     And I capture "html"
     And I want to login to portal "<PortalName2>"
@@ -202,10 +198,9 @@ Feature: WCAG Report generation
     Then I write "Profile Details" information to file
 
     Examples: 
-      | PortalName | PortalName2 | email                     | Password   | Message                                  |
-      | ARB        | AC CHECKER  | FirstAgentOne@agency1.com | Support123 | Invalid login details. Please try again. |
+      | PortalName | PortalName2 | email                | Password   | Message                                  |
+      | ARB        | AC CHECKER  | agentadmin2@test.com | Support123 | Invalid login details. Please try again. |
 
-	@wip
   Scenario Outline: Agency Profile Details
     Given I want to login to portal "<PortalName>"
     And I check I am on "Login" page
@@ -215,7 +210,7 @@ Feature: WCAG Report generation
       | Password | <Password> |
     And I hit Enter
     And I check I am on "ManageBonds" page
-    Then I click on text "Agent One"
+    Then I click on text "Agent Admin Two"
     Then I click on text "Agency Profile"
     Then I check I am on "Agency Profile" page
     And I capture "html"
@@ -228,8 +223,9 @@ Feature: WCAG Report generation
     Then I write "Agency Profile" information to file
 
     Examples: 
-      | PortalName | PortalName2 | email                     | Password   | Message                                  |
-      | ARB        | AC CHECKER  | FirstAgentOne@agency1.com | Support123 | Invalid login details. Please try again. |
+      | PortalName | PortalName2 | email                | Password   | Message                                  |
+      | ARB        | AC CHECKER  | agentadmin2@test.com | Support123 | Invalid login details. Please try again. |
+
 
   Scenario Outline: Password Change
     Given I want to login to portal "<PortalName>"
@@ -240,9 +236,9 @@ Feature: WCAG Report generation
       | Password | <Password> |
     And I hit Enter
     And I check I am on "ManageBonds" page
-    Then I click on text "Agent One"
+    Then I click on text "Agent Admin Two"
     Then I click on text "Security"
-    Then I check I am on "Password Change" page
+    Then I check I am on "Change Password" page
     And I capture "html"
     And I want to login to portal "<PortalName2>"
     And I click on text "Paste HTML Markup"
@@ -250,14 +246,14 @@ Feature: WCAG Report generation
     And I paste "html"
     And I click on button "validate_paste"
     And I capture "AC_num_of_errors"
-    Then I write "Password Change (Profile)" information to file
+    Then I write "Change Password (Profile)" information to file
 
     Examples: 
-      | PortalName | PortalName2 | email                     | Password   | Message                                  |
-      | ARB        | AC CHECKER  | FirstAgentOne@agency1.com | Support123 | Invalid login details. Please try again. |
+      | PortalName | PortalName2 | email                | Password   | Message                                  |
+      | ARB        | AC CHECKER  | agentadmin2@test.com | Support123 | Invalid login details. Please try again. |
 
-	@wip
-  Scenario Outline: Agent List
+
+  Scenario Outline: Manage Users
     Given I want to login to portal "<PortalName>"
     And I check I am on "Login" page
     And I enter the details as
@@ -266,8 +262,8 @@ Feature: WCAG Report generation
       | Password | <Password> |
     And I hit Enter
     And I check I am on "ManageBonds" page
-    Then I click on object with xpath "(//*[contains(text(), 'Users')])[2]"
-    Then I check I am on "AgentList" page
+    Then I click on text "Manage Users"
+    Then I check I am on "ManageUsers" page
     And I capture "html"
     And I want to login to portal "<PortalName2>"
     And I click on text "Paste HTML Markup"
@@ -276,13 +272,13 @@ Feature: WCAG Report generation
     And I click on button "validate_paste"
     Then I wait for "6000" milliseconds
     And I capture "AC_num_of_errors"
-    Then I write "Agent List" information to file
+    Then I write "Manage Users" information to file
 
     Examples: 
-      | PortalName | PortalName2 | email                     | Password   | Message                                  |
-      | ARB        | AC CHECKER  | FirstAgentOne@agency1.com | Support123 | Invalid login details. Please try again. |
+      | PortalName | PortalName2 | email                | Password   | Message                                  |
+      | ARB        | AC CHECKER  | agentadmin2@test.com | Support123 | Invalid login details. Please try again. |
 
-	@wip
+ 
   Scenario Outline: Lodge Bond Part 1
     Given I want to login to portal "<PortalName>"
     And I check I am on "Login" page
@@ -293,7 +289,7 @@ Feature: WCAG Report generation
     And I hit Enter
     And I check I am on "ManageBonds" page
     Then I click on text "Lodge Bond"
-    Then I check I am on "Bond Step1" page
+    Then I check I am on "Bond Lodgement Premise" page
     And I capture "html"
     And I want to login to portal "<PortalName2>"
     And I click on text "Paste HTML Markup"
@@ -302,13 +298,13 @@ Feature: WCAG Report generation
     And I click on button "validate_paste"
     Then I wait for "6000" milliseconds
     And I capture "AC_num_of_errors"
-    Then I write "Lodge Bond Part 1" information to file
+    Then I write "Bond Lodgement Premise" information to file
 
     Examples: 
-      | PortalName | PortalName2 | email                     | Password   | Message                                  |
-      | ARB        | AC CHECKER  | FirstAgentOne@agency1.com | Support123 | Invalid login details. Please try again. |
+      | PortalName | PortalName2 | email                | Password   | Message                                  |
+      | ARB        | AC CHECKER  | agentadmin2@test.com | Support123 | Invalid login details. Please try again. |
 
-	@wip
+  @current
   Scenario Outline: Lodge Bond Part 2
     Given I want to login to portal "<PortalName>"
     And I check I am on "Login" page
@@ -319,7 +315,7 @@ Feature: WCAG Report generation
     And I hit Enter
     And I check I am on "ManageBonds" page
     Then I click on text "Lodge Bond"
-    Then I check I am on "Bond Step1" page
+    Then I check I am on "Bond Lodgement Premise" page
     And I enter the details as
       | Fields             | Value                               |
       | OneLineAddress     | 10 FLORA AVE, BADGER CREEK VIC 3777 |
@@ -328,7 +324,7 @@ Feature: WCAG Report generation
       | WeeklyRentalAmount |                                 100 |
     Then I select "Separated House" from "DwellingType"
     Then I click on button with value "Next"
-    Then I check I am on "Bond Step2" page
+    Then I check I am on "Bond Lodgement Parties" page
     And I capture "html"
     And I want to login to portal "<PortalName2>"
     And I click on text "Paste HTML Markup"
@@ -337,13 +333,13 @@ Feature: WCAG Report generation
     And I click on button "validate_paste"
     Then I wait for "6000" milliseconds
     And I capture "AC_num_of_errors"
-    Then I write "Lodge Bond Part 2" information to file
+    Then I write "Bond Lodgement Parties" information to file
 
     Examples: 
-      | PortalName | PortalName2 | email                     | Password   | Message                                  |
-      | ARB        | AC CHECKER  | FirstAgentOne@agency1.com | Support123 | Invalid login details. Please try again. |
+      | PortalName | PortalName2 | email                | Password   | Message                                  |
+      | ARB        | AC CHECKER  | agentadmin2@test.com | Support123 | Invalid login details. Please try again. |
 
-	@wip
+
   Scenario Outline: Lodge Bond Part 3
     Given I want to login to portal "<PortalName>"
     And I check I am on "Login" page
@@ -354,7 +350,7 @@ Feature: WCAG Report generation
     And I hit Enter
     And I check I am on "ManageBonds" page
     Then I click on text "Lodge Bond"
-    Then I check I am on "Bond Step1" page
+    Then I check I am on "Bond Lodgement Premise" page
     And I enter the details as
       | Fields             | Value                               |
       | OneLineAddress     | 10 FLORA AVE, BADGER CREEK VIC 3777 |
@@ -363,25 +359,26 @@ Feature: WCAG Report generation
       | WeeklyRentalAmount |                                 100 |
     Then I select "Separated House" from "DwellingType"
     Then I click on button with value "Next"
-    Then I check I am on "Bond Step2" page
+    Then I check I am on "Bond Lodgement Parties" page
     And I enter the details as
       | Fields              | Value         |
       | TenantFirstName     | TEST          |
       | TenantLastName      | TEST          |
       | TenantEmail         | TEST@TEST.com |
       | TenantPhone         |    1234567890 |
-      | TenantAccountName   | TEST          |
-      | TenantBSB           |        123456 |
-      | TenantAcctNum       |        123456 |
+      #| TenantAccountName   | TEST          |
+      #| TenantBSB           |        123456 |
+      #| TenantAcctNum       |        123456 |
       | LessorFirstName     | TEST          |
       | LessorLastName      | TEST          |
       | LessorEmail         | TEST@TeST.com |
       | LessorPhone         |    1234567890 |
-      | LessorAccountName   | TEST          |
-      | LessorBSB           |        123456 |
-      | LessorAccountNumber |        123456 |
+      | AgencyName         |    1234567890 |
+      #| LessorAccountName   | TEST          |
+      #| LessorBSB           |        123456 |
+      #| LessorAccountNumber |        123456 |
     Then I click on button with value "Next"
-    Then I check I am on "Bond Step3" page
+    Then I check I am on "Bond Lodgement Summary" page
     And I capture "html"
     And I want to login to portal "<PortalName2>"
     And I click on text "Paste HTML Markup"
@@ -390,12 +387,13 @@ Feature: WCAG Report generation
     And I click on button "validate_paste"
     Then I wait for "6000" milliseconds
     And I capture "AC_num_of_errors"
-    Then I write "Lodge Bond Part 3" information to file
+    Then I write "Bond Lodgement Summary" information to file
 
     Examples: 
-      | PortalName | PortalName2 | email                     | Password   | Message                                  |
-      | ARB        | AC CHECKER  | FirstAgentOne@agency1.com | Support123 | Invalid login details. Please try again. |
+      | PortalName | PortalName2 | email                | Password   | Message                                  |
+      | ARB        | AC CHECKER  | agentadmin2@test.com | Support123 | Invalid login details. Please try again. |
 
+  @wip
   Scenario Outline: Lodge Bond Part 4
     Given I want to login to portal "<PortalName>"
     And I check I am on "Login" page
@@ -406,7 +404,7 @@ Feature: WCAG Report generation
     And I hit Enter
     And I check I am on "ManageBonds" page
     Then I click on text "Lodge Bond"
-    Then I check I am on "Bond Step1" page
+    Then I check I am on "Bond Lodgement Premise" page
     And I enter the details as
       | Fields             | Value                               |
       | OneLineAddress     | 10 FLORA AVE, BADGER CREEK VIC 3777 |
@@ -415,28 +413,29 @@ Feature: WCAG Report generation
       | WeeklyRentalAmount |                                 100 |
     Then I select "Separated House" from "DwellingType"
     Then I click on button with value "Next"
-    Then I check I am on "Bond Step2" page
+    Then I check I am on "Bond Lodgement Parties" page
     And I enter the details as
       | Fields              | Value         |
       | TenantFirstName     | TEST          |
       | TenantLastName      | TEST          |
       | TenantEmail         | TEST@TEST.com |
       | TenantPhone         |    1234567890 |
-      | TenantAccountName   | TEST          |
-      | TenantBSB           |        123456 |
-      | TenantAcctNum       |        123456 |
+      #| TenantAccountName   | TEST          |
+      #| TenantBSB           |        123456 |
+      #| TenantAcctNum       |        123456 |
       | LessorFirstName     | TEST          |
       | LessorLastName      | TEST          |
       | LessorEmail         | TEST@TeST.com |
       | LessorPhone         |    1234567890 |
-      | LessorAccountName   | TEST          |
-      | LessorBSB           |        123456 |
-      | LessorAccountNumber |        123456 |
+      | AgencyName         |    1234567890 |
+      #| LessorAccountName   | TEST          |
+      #| LessorBSB           |        123456 |
+      #| LessorAccountNumber |        123456 |
     Then I click on button with value "Next"
-    Then I check I am on "Bond Step3" page
+    Then I check I am on "Bond Lodgement Summary" page
     Then I click on button "ConfirmCheck"
     Then I click on button with value "Next"
-    Then I check I am on "Bond Step4" page
+    Then I check I am on "Bond Lodgement Confirmation" page
     And I capture "html"
     And I want to login to portal "<PortalName2>"
     And I click on text "Paste HTML Markup"
@@ -445,11 +444,71 @@ Feature: WCAG Report generation
     And I click on button "validate_paste"
     Then I wait for "6000" milliseconds
     And I capture "AC_num_of_errors"
-    Then I write "Lodge Bond Part 4" information to file
+    Then I write "Bond Lodgement Confirmation" information to file
 
     Examples: 
-      | PortalName | PortalName2 | email                     | Password   | Message                                  |
-      | ARB        | AC CHECKER  | FirstAgentOne@agency1.com | Support123 | Invalid login details. Please try again. |
+      | PortalName | PortalName2 | email                | Password   | Message                                  |
+      | ARB        | AC CHECKER  | agentadmin2@test.com | Support123 | Invalid login details. Please try again. |
+
+  @wip
+  Scenario Outline: Lodge Bond Part 5
+    Given I want to login to portal "<PortalName>"
+    And I check I am on "Login" page
+    And I enter the details as
+      | Fields   | Value      |
+      | Email    | <email>    |
+      | Password | <Password> |
+    And I hit Enter
+    And I check I am on "ManageBonds" page
+    Then I click on text "Lodge Bond"
+    Then I check I am on "Bond Lodgement Premise" page
+    And I enter the details as
+      | Fields             | Value                               |
+      | OneLineAddress     | 10 FLORA AVE, BADGER CREEK VIC 3777 |
+      | NumberOfBedrooms   |                                  11 |
+      | TotalBondAmount    |                                 100 |
+      | WeeklyRentalAmount |                                 100 |
+    Then I select "Separated House" from "DwellingType"
+    Then I click on button with value "Next"
+    Then I check I am on "Bond Lodgement Parties" page
+     And I enter the details as
+      | Fields              | Value         |
+      | TenantFirstName     | TEST          |
+      | TenantLastName      | TEST          |
+      | TenantEmail         | TEST@TEST.com |
+      | TenantPhone         |    1234567890 |
+      #| TenantAccountName   | TEST          |
+      #| TenantBSB           |        123456 |
+      #| TenantAcctNum       |        123456 |
+      | LessorFirstName     | TEST          |
+      | LessorLastName      | TEST          |
+      | LessorEmail         | TEST@TeST.com |
+      | LessorPhone         |    1234567890 |
+      | AgencyName         |    1234567890 |
+      #| LessorAccountName   | TEST          |
+      #| LessorBSB           |        123456 |
+      #| LessorAccountNumber |        123456 |
+    Then I click on button with value "Next"
+    Then I check I am on "Bond Lodgement Summary" page
+    Then I click on button "ConfirmCheck"
+    Then I click on button with value "Next"
+    Then I check I am on "Bond Lodgement Confirmation" page
+    Then I click on button with value "View Payment Info"
+    Then I wait for "3000" milliseconds
+    Then I check I am on "Bond Payment View" page
+    And I capture "html"
+    And I want to login to portal "<PortalName2>"
+    And I click on text "Paste HTML Markup"
+    And I click on button "checkpaste"
+    And I paste "html"
+    And I click on button "validate_paste"
+    Then I wait for "6000" milliseconds
+    And I capture "AC_num_of_errors"
+    Then I write "Bond Payment View" information to file
+
+    Examples: 
+      | PortalName | PortalName2 | email                | Password   | Message                                  |
+      | ARB        | AC CHECKER  | agentadmin2@test.com | Support123 | Invalid login details. Please try again. |
 #	    	    Given I want to login to portal "<PortalName>"
 #	    And I check I am on "Login" page
 #	     And I enter the details as
